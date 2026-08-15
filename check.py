@@ -12,9 +12,13 @@ def status(count):
     else:
         return "FAIL"
 
+def pct(count):
+    p = len(df)
+    return (count / p) * 100
+
 def check(label, mask):
     count = mask.sum()
-    print(f"{status(count)} - {label}: {count}")
+    print(f"{status(count)} - {label}: {count} ; {pct(count).round(1)}%")
     return count > 0
 
 dupes = df["Transaction ID"].duplicated()
