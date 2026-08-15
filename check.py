@@ -2,8 +2,14 @@ import pandas as pd
 
 data = pd.read_csv("data/retail_store_sales.csv")
 
-total = len(data)
-missing = data.isna().sum()
+dupes = data["Transaction ID"].duplicated()
+negative_pr = data["Price Per Unit"] < 0
+bad_qty = data["Quantity"] <= 0
+missing_item = data["Item"].isna()
+missing_price = data["Price Per Unit"].isna()
 
-percentage = ((missing/total)*100).round(1)
-print(percentage)
+print(f"Duplicated transactions ID: {dupes.sum()}")
+print(f"Negative Price Per Unit: {negative_pr.sum()}")
+print(f"Bad Quantity: {bad_qty.sum()}")
+print(f"Missing items: {missing_item.sum()}")
+print(f"Missing price: {missing_price.sum()}")
