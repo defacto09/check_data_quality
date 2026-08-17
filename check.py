@@ -18,7 +18,7 @@ def pct(count):
 
 def check(label, mask):
     count = mask.sum()
-    print(f"{status(count)} - {label}: {count} ; {pct(count).round(1)}%")
+    print(f"{status(count)} - {label}: {count} | {pct(count).round(1)}%")
     return count > 0
 
 dupes = df["Transaction ID"].duplicated()
@@ -29,16 +29,21 @@ missing_price = df["Price Per Unit"].isna()
 invalid_payment = ~df["Payment Method"].isin(valid_payments)
 mismatch = (df["Total Spent"] - computed).abs() > 0.01
 
-results = [
-    check("Duplicated transactions ID", dupes),
-    check("Negative Price Per Unit", negative_pr),
-    check("Invalid Quantity", bad_qty),
-    check("Missing Item", missing_item),
-    check("Missing Price", missing_price),
-    check("Invalid Payment", invalid_payment),
-    check("Value mismatch", mismatch)
-]
+
+checks = [
+    ("Duplicated transactions ID", dupes),
+    ("Negative Price Per Unit", negative_pr),
+    ("Invalid Quantity", bad_qty),
+    ("Missing Price", missing_price),
+    ("Missing Item", missing_item),
+    ("Invalid Payment", invalid_payment),
+    ("Value mismatch", mismatch) 
+    ]
+
+results = []
+
+for label, mask in checks:
+    results.append(check(label, mask))
 
 if any(results):
     sys.exit(1)
-
