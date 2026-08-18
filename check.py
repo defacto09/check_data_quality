@@ -21,6 +21,11 @@ def check(label, mask):
     print(f"{status(count)} - {label}: {count} | {pct(count).round(1)}%")
     return count > 0
 
+def summary(results):
+    failed = sum(results)
+    total = len(results)
+    print(f"{failed} of {total} checks failed")
+
 dupes = df["Transaction ID"].duplicated()
 negative_pr = df["Price Per Unit"] < 0
 bad_qty = df["Quantity"] <= 0
@@ -44,6 +49,8 @@ results = []
 
 for label, mask in checks:
     results.append(check(label, mask))
+
+summary(results)
 
 if any(results):
     sys.exit(1)
