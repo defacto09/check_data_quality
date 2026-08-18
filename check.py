@@ -22,7 +22,7 @@ def single_check(label, mask):
     count = mask.sum()
     print(f"{status(count)} - {label}: {count} | {pct(count).round(1)}%")
     if count > 0:  
-        print(f"rows: {failed_rows(mask)}")
+        print(f"    rows: {failed_rows(mask)}")
     return count > 0 
 
 def summary(results):
