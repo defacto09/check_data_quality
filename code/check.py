@@ -14,13 +14,12 @@ def status(count):
     else:
         return "FAIL"
 
-def pct(count):
-    p = len(df)
-    return (count / p) * 100
+def pct(count, total):
+    return (count / total) * 100
 
 def single_check(label, mask):
     count = mask.sum()
-    print(f"{status(count)} - {label}: {count} | {pct(count).round(1)}%")
+    print(f"{status(count)} - {label}: {count} | {pct(count, len(df)).round(1)}%")
     if count > 0:  
         print(f"    rows: {failed_rows(mask)}")
     return count > 0 
