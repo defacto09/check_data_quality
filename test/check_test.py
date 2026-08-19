@@ -7,4 +7,4 @@ def test_status_zero_fail():
     assert status(5) == "FAIL"
 
 def test_pct():
-    assert pct(1, 10)
+    assert pct(1, 10) == 10.0
